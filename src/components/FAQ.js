@@ -1,30 +1,15 @@
 import React from "react";
 import Accordion from "./Accordion";
-import styled from "styled-components";
 
 const FAQ = () => {
   return (
-    <Faq>
-      <span>FAQ</span>
+    <div className="mt-150 ml-50">
+      <span className="text-4xl font-bold leading-58 tracking-tighter bg-gradient-to-b from-blue-900 to-blue-500 text-transparent">
+        FAQ
+      </span>
       <Accordion />
-    </Faq>
+    </div>
   );
 };
 
 export default FAQ;
-
-const Faq = styled.div`
-  margin-top: 150px;
-  margin-left: 50px;
-  span {
-    font-size: 48px;
-    font-weight: 700;
-    line-height: 58px;
-    letter-spacing: 0.005em;
-    text-align: left;
-    background-image: linear-gradient(to bottom, #06286e, #164ec0);
-    color: transparent;
-    -webkit-background-clip: text; /* for Safari/Chrome/iOS */
-    background-clip: text;
-  }
-`;

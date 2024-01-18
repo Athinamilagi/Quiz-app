@@ -1,115 +1,60 @@
-import React from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
-import styled from "styled-components";
+import { Outlet,Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
-  const location = useLocation();
-  const currentRoute = location.pathname;
-  const routeParts = currentRoute.split("/").filter(Boolean);
+ const currentLocation = useLocation();
+ const currentRoute = currentLocation.pathname.split("/")[1];
 
-  return (
-    <Container>
-      <Main>
-        <Link to="/">
-          <img src="/images/site-logo.png" alt="logo" />
-        </Link>
-        <Menu>
-          <Link to="/">
-            <li>Home</li>
-          </Link>
-          <Link to="flashcard">
-            <li>Flashcard</li>
-          </Link>
-          <Link to="contact">
-            <li>Contact</li>
-          </Link>
-          <Link to="faq">
-            <li>FAQ</li>
-          </Link>
-          <Link to="login">
+ const routeParts = currentLocation.pathname.split("/").filter((data) => data !== "");
+
+ return (
+    <div className="min-h-screen bg-gray-100">
+      <div className="container mx-auto py-16 px-4">
+        <div className="flex justify-between items-center">
+          <img src="/images/home-icon.png" alt="home" className="w-48 h-14" />
+          <ul className="flex items-center space-x-16">
             <li>
-              <span>Login</span>
+              <Link to="flashcard" className={`block ${currentRoute === "flashcard" ? "text-blue-600" : "text-gray-500"}`}>
+                <li>Flashcard</li>
+              </Link>
             </li>
-          </Link>
-        </Menu>
-      </Main>
-      <Navigation>
-        <li>
-          <img src="/images/home-icon.png" alt="home" />
-          <img className="arrow" src="/images/right-arrow.png" alt="path" />
-        </li>
-        {routeParts.map((data) => (
+            <li>
+              <Link to="contact" className={`block ${currentRoute === "contact" ? "text-blue-600" : "text-gray-500"}`}>
+                <li>Contact</li>
+              </Link>
+            </li>
+            <li>
+              <Link to="faq" className={`block ${currentRoute === "faq" ? "text-blue-600" : "text-gray-500"}`}>
+                <li>FAQ</li>
+              </Link>
+            </li>
+            <li>
+              <Link to="login" className={`block ${currentRoute === "login" ? "text-blue-600" : "text-gray-500"}`}>
+                <li>
+                 <span>Login</span>
+                </li>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="container mx-auto py-16 px-4">
+        <ul className="flex items-center space-x-8">
           <li>
-            {data}
-            <img className="arrow" src="/images/right-arrow.png" alt="path" />
+            <img src="/images/home-icon.png" alt="home" className="w-10 h-10" />
+            <img src="/images/right-arrow.png" alt="path" className="w-5 h-5" />
           </li>
-        ))}
-      </Navigation>
+          {routeParts.map((data, index) => (
+            <li key={index}>
+              {data}
+              <img src="/images/right-arrow.png" alt="path" className="w-5 h-5" />
+            </li>
+          ))}
+        </ul>
+      </div>
       <Outlet />
-    </Container>
-  );
+    </div>
+ );
 };
 
 export default Header;
-
-const Container = styled.div`
-  min-height: 160vh;
-  padding: 0 calc(3.4vw + 5px);
-  position: relative;
-  overflow: hidden;
-  background-color: rgba(249, 249, 249, 0.1);
-`;
-
-const Main = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  img {
-    width: 191px;
-    height: 59px;
-  }
-`;
-const Menu = styled.ul`
-  display: flex;
-  align-items: center;
-  li {
-    padding-right: 40px;
-    span {
-      font-weight: 500;
-      color: white;
-      border-radius: 32px;
-      padding: 13px 40px;
-      background: linear-gradient(to bottom, #06286e, #164ec0);
-    }
-  }
-`;
-
-const Navigation = styled.div`
-margin: 20px 30px;
-display: flex;
-li {
-    text-transform: capitalize;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    font-weight: 600;
-    color : #696671;
-    img {
-      width: 20px;
-      height: 21.25px;
-      color: #696671;
-    }
-
-    .arrow {
-      color: #06286E;
-      width: 1.5em;
-      height: 1.3em;
-    }
-    &:last-child {
-        color: #06286E;
-        .arrow {
-          display: none; // Hide the right-arrow image for the last li
-        }
-  }
-`;

@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
-import styled from "styled-components";
 
 const SliderImage = (props) => {
   const [activeOption, setActiveOption] = useState("Study");
@@ -17,127 +16,80 @@ const SliderImage = (props) => {
   };
   return (
     <>
-      <Option>
+      <ul className="flex space-x-4 absolute top-20 left-1/2 transform -translate-x-1/2">
         <li
-          className={activeOption === "Study" ? "active" : ""}
+          className={`cursor-pointer ${
+            activeOption === "Study"
+              ? "font-semibold text-blue-600"
+              : "font-normal text-gray-500"
+          }`}
           onClick={() => handleOptionClick("Study")}
         >
           Study
         </li>
         <li
-          className={activeOption === "Quiz" ? "active" : ""}
+          className={`cursor-pointer ${
+            activeOption === "Quiz"
+              ? "font-semibold text-blue-600"
+              : "font-normal text-gray-500"
+          }`}
           onClick={() => handleOptionClick("Quiz")}
         >
           Quiz
         </li>
         <li
-          className={activeOption === "Test" ? "active" : ""}
+          className={`cursor-pointer ${
+            activeOption === "Test"
+              ? "font-semibold text-blue-600"
+              : "font-normal text-gray-500"
+          }`}
           onClick={() => handleOptionClick("Test")}
         >
           Test
         </li>
         <li
-          className={activeOption === "Game" ? "active" : ""}
+          className={`cursor-pointer ${
+            activeOption === "Game"
+              ? "font-semibold text-blue-600"
+              : "font-normal text-gray-500"
+          }`}
           onClick={() => handleOptionClick("Game")}
         >
           Game
         </li>
         <li
-          className={activeOption === "others" ? "active" : ""}
+          className={`cursor-pointer ${
+            activeOption === "others"
+              ? "font-semibold text-blue-600"
+              : "font-normal text-gray-500"
+          }`}
           onClick={() => handleOptionClick("others")}
         >
           others
         </li>
-      </Option>
-      <Container>
-        <Hint show={activeOption}>
-          <img src="/images/hint-icon.png" alt="hint" />
-        </Hint>
-        <Speaker onClick={handleSpeak}>
-          <img src="/images/speaker-icon.png" alt="speaker" />
-        </Speaker>
-        <Equation ref={equationRef}>{props.equation}</Equation>
-      </Container>
+      </ul>
+      <div className="mt-10 w-full h-[393.19px] bg-gradient-to-r from-[#051a91] via-[#061c93] to-[#2284f1] flex flex-col items-center justify-center relative">
+        <div
+          className={`absolute top-20 left-5 ${
+            activeOption === "Study" ? "block" : "hidden"
+          }`}
+        >
+          <img src="/images/hint-icon.png" alt="hint" className="w-8 h-8" />
+        </div>
+        <div
+          className="absolute top-20 right-5 cursor-pointer"
+          onClick={handleSpeak}
+        >
+          <img
+            src="/images/speaker-icon.png"
+            alt="speaker"
+            className="w-8 h-8"
+          />
+        </div>
+        <div ref={equationRef}>{props.equation}</div>
+      </div>
     </>
   );
 };
 
 export default SliderImage;
-
-const Container = styled.div`
-  margin-top: 30px;
-  width: 712px;
-  height: 393.19px;
-  border-radius: 42.51px;
-  position: relative;
-  background: linear-gradient(
-    222.94deg,
-    #051a91 -4.31%,
-    #061c93 14.41%,
-    #2284f1 81.88%,
-    #1f80eb 103.81%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-const Hint = styled.div`
-  position: absolute;
-  top: 20px;
-  left: 25px;
-  display: ${(props) => (props.show === "Study" ? "block" : "none")};
-  img {
-    width: 35px;
-    height: 40px;
-    filter: invert(100%);
-  }
-`;
-const Speaker = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  img {
-    width: 35px;
-    height: 40px;
-    filter: invert(100%);
-  }
-`;
-const Equation = styled.div`
-  font-family: "Lato", sans-serif;
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 46px;
-  letter-spacing: 0.02em;
-  text-align: center;
-  color: white;
-`;
-const Option = styled.ul`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  position: relative;
-
-  li {
-    color: #696671;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24.2px;
-    position: relative; /* Add position: relative to the li element */
-
-    &.active {
-      font-weight: 700;
-      color: #06286e;
-
-      &:after {
-        content: "";
-        position: absolute;
-        left: -7px;
-        right: 0;
-        bottom: -6px;
-        width: 70px;
-        height: 2px;
-        background-color: #06286e;
-      }
-    }
-  }
-`;
